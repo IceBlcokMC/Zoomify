@@ -1,6 +1,13 @@
 #pragma once
 
+#include <memory>
+
+#include "ll/api/event/ListenerBase.h"
 #include "ll/api/mod/NativeMod.h"
+
+namespace zoomify {
+struct Config;
+}
 
 namespace my_mod {
 
@@ -22,12 +29,14 @@ public:
     /// @return True if the mod is disabled successfully.
     bool disable();
 
-    // TODO: Implement this method if you need to unload the mod.
-    // /// @return True if the mod is unloaded successfully.
-    // bool unload();
-
 private:
     ll::mod::NativeMod& mSelf;
+
+    std::shared_ptr<zoomify::Config> mConfig;
+    ll::event::ListenerPtr           mKeyListener;
+    ll::event::ListenerPtr           mMouseWheelListener;
+    ll::event::ListenerPtr           mJoinLevelListener;
+    ll::event::ListenerPtr           mExitLevelListener;
 };
 
 } // namespace my_mod
